@@ -63,6 +63,45 @@ if (heroSection) {
     });
 }
 
+// Touch/Swipe functionality for mobile
+let touchStartX = 0;
+let touchEndX = 0;
+let touchStartY = 0;
+let touchEndY = 0;
+
+const carousel = document.querySelector('.hero-carousel');
+if (carousel) {
+    carousel.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+        touchStartY = e.changedTouches[0].screenY;
+        clearInterval(autoplayInterval); // Pause autoplay on touch
+    }, { passive: true });
+
+    carousel.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        touchEndY = e.changedTouches[0].screenY;
+        handleSwipe();
+        autoplayInterval = setInterval(nextSlide, 5000); // Resume autoplay
+    }, { passive: true });
+}
+
+function handleSwipe() {
+    const swipeThreshold = 50; // Minimum distance for swipe
+    const xDiff = touchStartX - touchEndX;
+    const yDiff = Math.abs(touchStartY - touchEndY);
+    
+    // Only trigger if horizontal swipe is more than vertical (to avoid interfering with scroll)
+    if (Math.abs(xDiff) > swipeThreshold && Math.abs(xDiff) > yDiff) {
+        if (xDiff > 0) {
+            // Swipe left - show next slide
+            nextSlide();
+        } else {
+            // Swipe right - show previous slide
+            prevSlide();
+        }
+    }
+}
+
 // Mobile Menu Toggle
 const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
 const navLinks = document.querySelector('.nav-links');
