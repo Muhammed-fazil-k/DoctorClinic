@@ -121,33 +121,89 @@ body {
 }
 
 /* ===========================
-   Hero Section
+   Hero Section - Overlay Style
    =========================== */
 .hero {
-    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
-    color: #fff;
-    padding: 150px 0 100px;
-    text-align: center;
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    overflow: hidden;
     margin-top: 70px;
 }
 
+.hero-carousel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.carousel-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+}
+
+.carousel-slide.active {
+    opacity: 1;
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.7) 0%, rgba(30, 64, 175, 0.6) 100%);
+    z-index: 1;
+}
+
+.hero-content-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .hero-content {
-    max-width: 800px;
-    margin: 0 auto;
+    max-width: 900px;
+    text-align: center;
+    color: #fff;
+    padding: 2rem;
 }
 
 .hero-title {
     font-size: 3.5rem;
     font-weight: bold;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     animation: fadeInUp 0.8s ease-out;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+    line-height: 1.2;
 }
 
 .hero-subtitle {
-    font-size: 1.3rem;
-    margin-bottom: 2rem;
-    opacity: 0.95;
+    font-size: 1.4rem;
+    margin-bottom: 2.5rem;
     animation: fadeInUp 1s ease-out;
+    text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.5);
+    line-height: 1.6;
 }
 
 .hero-buttons {
@@ -159,12 +215,14 @@ body {
 }
 
 .btn {
-    padding: 0.875rem 2rem;
-    border-radius: 30px;
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
     text-decoration: none;
     font-weight: 600;
     transition: var(--transition);
     display: inline-block;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 .btn-primary {
@@ -174,8 +232,73 @@ body {
 
 .btn-primary:hover {
     background: var(--light-color);
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-lg);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Carousel Controls */
+.carousel-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 3;
+    background: rgba(255, 255, 255, 0.3);
+    border: none;
+    color: #fff;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: var(--transition);
+    backdrop-filter: blur(5px);
+}
+
+.carousel-control:hover {
+    background: rgba(255, 255, 255, 0.5);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-control.prev {
+    left: 20px;
+}
+
+.carousel-control.next {
+    right: 20px;
+}
+
+.carousel-control i {
+    font-size: 1.5rem;
+}
+
+/* Carousel Indicators */
+.carousel-indicators {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    display: flex;
+    gap: 12px;
+}
+
+.indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: var(--transition);
+    border: 2px solid transparent;
+}
+
+.indicator:hover {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.indicator.active {
+    background: #fff;
+    border-color: var(--primary-color);
+    transform: scale(1.2);
 }
 
 .btn-secondary {
@@ -702,12 +825,53 @@ body {
         left: 0;
     }
 
+    .hero {
+        min-height: 600px;
+        height: 100vh;
+    }
+
+    .hero-content {
+        padding: 1.5rem;
+    }
+
     .hero-title {
-        font-size: 2.5rem;
+        font-size: 2rem;
+        margin-bottom: 1rem;
     }
 
     .hero-subtitle {
-        font-size: 1.1rem;
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .hero-buttons {
+        gap: 0.75rem;
+    }
+
+    .btn {
+        padding: 0.875rem 1.75rem;
+        font-size: 1rem;
+    }
+
+    .carousel-control {
+        width: 40px;
+        height: 40px;
+    }
+
+    .carousel-control.prev {
+        left: 10px;
+    }
+
+    .carousel-control.next {
+        right: 10px;
+    }
+
+    .carousel-control i {
+        font-size: 1.2rem;
+    }
+
+    .carousel-indicators {
+        bottom: 20px;
     }
 
     .form-row {
@@ -750,8 +914,42 @@ body {
 }
 
 @media (max-width: 480px) {
+    .hero {
+        min-height: 500px;
+        height: 100vh;
+    }
+
+    .hero-content {
+        padding: 1rem;
+    }
+
     .hero-title {
-        font-size: 2rem;
+        font-size: 1.6rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .hero-subtitle {
+        font-size: 0.9rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .btn {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.95rem;
+    }
+
+    .carousel-control {
+        width: 35px;
+        height: 35px;
+    }
+
+    .carousel-control i {
+        font-size: 1rem;
+    }
+
+    .indicator {
+        width: 10px;
+        height: 10px;
     }
 
     .section-title {
