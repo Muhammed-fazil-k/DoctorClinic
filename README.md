@@ -1,6 +1,7 @@
 # Healthcare Clinic Website
 
 A modern, responsive landing page for a doctor clinic that can be easily customized for multiple healthcare purposes.
+https://muhammed-fazil-k.github.io/DoctorClinic/
 
 ## Features
 
